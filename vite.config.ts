@@ -9,7 +9,7 @@ export default defineConfig({
     Sitemap({
       hostname: 'https://luisdamora.github.io/json-to-vtt-caprinosol/',
       dynamicRoutes: [
-        '/',
+        '/json-to-vtt-caprinosol/',
       ],
       outDir: 'dist'
     }),
