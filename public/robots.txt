@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://luisdamora.github.io/json-to-vtt-caprinosol/sitemap.xml
