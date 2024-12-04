@@ -2,6 +2,6 @@ import { defineConfig } from 'vite'
 
 
 export default defineConfig({
-  base: '/vitejs-vite-bkrjyz/'
+  base: '/json-to-vtt-caprinosol/'
 })
 
