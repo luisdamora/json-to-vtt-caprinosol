@@ -1,121 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JSON to VTT Converter</title>
-    <script src="https://cdn.tailwindcss.com/3.4.15"></script>
-    <!-- ... other head content ... -->
-    <style>
-      body {
-        margin: 0;
-        background: linear-gradient(-45deg, rgba(0, 255, 149, 0.9), rgba(0, 102, 255, 0.9), rgba(110, 0, 255, 0.9), rgba(0, 255, 238, 0.9));
-        background-size: 400% 400%;
-        height: 100vh;
-        width: 100vw;
-        animation: gradientAnimation 15s ease infinite;
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON to VTT Converter</title>
+  <script src="https://cdn.tailwindcss.com/3.4.15"></script>
+  <!-- ... other head content ... -->
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(-45deg, rgba(0, 255, 149, 0.9), rgba(0, 102, 255, 0.9), rgba(110, 0, 255, 0.9), rgba(0, 255, 238, 0.9));
+      background-size: 400% 400%;
+      height: 100vh;
+      width: 100vw;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
       }
 
-      @keyframes gradientAnimation {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
+      50% {
+        background-position: 100% 50%;
       }
 
-      /* Optional: Add some subtle floating animation to the main container */
-      .floating {
-        animation: floating 3s ease-in-out infinite;
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Optional: Add some subtle floating animation to the main container */
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% {
+        transform: translateY(0px);
       }
 
-      @keyframes floating {
-        0% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-        100% {
-          transform: translateY(0px);
-        }
+      50% {
+        transform: translateY(-10px);
       }
-    </style>
-    <script>
-      let isMouseMoving = false;
-      let animationTimeout;
 
-      document.addEventListener('mousemove', (e) => {
-        isMouseMoving = true;
-        document.body.style.animation = 'none';
-        
-        const x = e.clientX / window.innerWidth * 100;
-        const y = e.clientY / window.innerHeight * 100;
-        document.body.style.backgroundPosition = `${x}% ${y}%`;
+      100% {
+        transform: translateY(0px);
+      }
+    }
 
-        clearTimeout(animationTimeout);
-        animationTimeout = setTimeout(() => {
-          isMouseMoving = false;
-          document.body.style.animation = 'gradientAnimation 15s ease infinite';
-        }, 1000);
-      });
-    </script>
-  </head>
-  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-      <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">
-        JSON to VTT Converter
-      </h1>
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
 
-      <div class="mb-6 text-gray-600 text-sm">
-        <p class="mb-3">
-          Convert your JSON subtitle files to WebVTT format easily. Simply upload a JSON file with the following structure:
-        </p>
-        <pre class="bg-gray-50 p-3 rounded-md text-xs overflow-x-auto mb-3">
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .animate-gradient {
+      background-size: 200% auto;
+      animation: gradient 4s linear infinite;
+    }
+  </style>
+  <script>
+    let isMouseMoving = false;
+    let animationTimeout;
+
+    document.addEventListener('mousemove', (e) => {
+      isMouseMoving = true;
+      document.body.style.animation = 'none';
+
+      const x = e.clientX / window.innerWidth * 100;
+      const y = e.clientY / window.innerHeight * 100;
+      document.body.style.backgroundPosition = `${x}% ${y}%`;
+
+      clearTimeout(animationTimeout);
+      animationTimeout = setTimeout(() => {
+        isMouseMoving = false;
+        document.body.style.animation = 'gradientAnimation 15s ease infinite';
+      }, 1000);
+    });
+  </script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full mx-2">
+    <h1
+      class="text-3xl mb-4 md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-emerald-400 mb-6 text-center animate-gradient hover:scale-105 transition-transform duration-300">
+      JSON to VTT Converter
+    </h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- First Column -->
+      <div>
+
+
+        <div class="mb-6 text-gray-600 text-sm">
+          <p class="mb-3">
+            Convert your JSON subtitle files to WebVTT format easily. Simply upload a JSON file with the following
+            structure:
+          </p>
+          <pre class="bg-gray-50 p-3 rounded-md text-xs overflow-x-auto mb-3">
+{
+  "chunks": [
     {
-      "chunks": [
-        {
-          "timestamp": [0, 2.5],
-          "text": "Subtitle text here"
-        }
-      ]
-    }</pre>
-        <p class="text-xs text-gray-500">
-          Features:
-          <span class="block mt-1">• Drag & drop file upload</span>
-          <span class="block">• Instant VTT file download</span>
-          <span class="block">• Modern and responsive design</span>
-        </p>
+      "timestamp": [0, 2.5],
+      "text": "Subtitle text here"
+    }
+  ]
+}
+</pre>
+          <p class="text-xs text-gray-500">
+            Features:
+            <span class="block mt-1">• Drag & drop file upload</span>
+            <span class="block">• Instant VTT file download</span>
+            <span class="block">• Modern and responsive design</span>
+          </p>
+        </div>
       </div>
 
+      <!-- Second Column -->
       <div class="space-y-6">
-        <!-- File Input Container -->
         <div class="flex flex-col items-center justify-center w-full">
-          <label
-            for="jsonInput"
-            class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
-          >
+          <!-- File Input Container -->
+          <label for="jsonInput"
+            class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-              <svg
-                class="w-8 h-8 mb-4 text-gray-500"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 16"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                />
+              <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 20 16">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
               </svg>
               <p class="mb-2 text-sm text-gray-500">
                 <span class="font-semibold">Click to upload</span> or drag and
@@ -126,45 +148,45 @@
             <input id="jsonInput" type="file" accept=".json" class="hidden" />
           </label>
         </div>
-
-        <!-- Add this right before the Convert Button -->
         <div id="fileInfo" class="text-sm text-gray-600 text-center mb-2 hidden"></div>
-
-        <!-- Convert Button -->
-        <button
-          id="convertButton"
-          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
-        >
+        <button id="convertButton"
+          class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
           Convert to VTT
         </button>
-
-        <!-- Result Container -->
         <div id="result" class="flex justify-center">
           <!-- Download link will appear here -->
         </div>
       </div>
     </div>
-    <!-- Add this fixed footer before the closing body tag -->
-    <footer class="fixed bottom-0 w-full bg-gray-800 text-white text-center py-3">
-      <p class="text-sm">
-        <a href="mailto:luisdavmora@gmail.com" class="font-bold hover:text-blue-300 transition-colors duration-300">
-          Created with ❤️ by Caprinsol dev
-        </a>
-      </p>
-      <p class="text-sm flex justify-center items-center gap-4">
-        <a class="hover:text-blue-300 transition-colors duration-300 flex items-center gap-2" href="https://luisdamora.github.io/json-to-vtt-caprinosol/">
-          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          github page
-        </a>
-        <a class="hover:text-blue-300 transition-colors duration-300 flex items-center gap-2" href="https://github.com/luisdamora/json-to-vtt-caprinosol">
-          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-          repository
-        </a>      
-      </p>    </footer>        
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  </div>
+  <!-- Add this fixed footer before the closing body tag -->
+  <footer class="fixed bottom-0 w-full bg-gray-800 text-white text-center py-3">
+    <p class="text-sm">
+      <a href="mailto:luisdavmora@gmail.com" class="font-bold hover:text-blue-300 transition-colors duration-300">
+        Created with ❤️ by Caprinsol dev
+      </a>
+    </p>
+    <p class="text-sm flex justify-center items-center gap-4">
+      <a class="hover:text-blue-300 transition-colors duration-300 flex items-center gap-2"
+        href="https://luisdamora.github.io/json-to-vtt-caprinosol/">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+        github page
+      </a>
+      <a class="hover:text-blue-300 transition-colors duration-300 flex items-center gap-2"
+        href="https://github.com/luisdamora/json-to-vtt-caprinosol">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+        repository
+      </a>
+
+    </p>
+  </footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
