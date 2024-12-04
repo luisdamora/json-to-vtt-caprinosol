@@ -8,8 +8,9 @@ export default defineConfig({
   plugins: [
     Sitemap({
       hostname: 'https://luisdamora.github.io/json-to-vtt-caprinosol/',
+      basePath: '/json-to-vtt-caprinosol',
       dynamicRoutes: [
-        '/json-to-vtt-caprinosol/',
+        '/',
       ],
       outDir: 'dist'
     }),
