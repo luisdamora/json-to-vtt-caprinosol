@@ -39,6 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const dropZone = document.querySelector('label[for="jsonInput"]') as HTMLLabelElement;
   const convertButton = document.getElementById('convertButton') as HTMLButtonElement;
   const resultDiv = document.getElementById('result') as HTMLDivElement;
+  const fileInfo = document.getElementById('fileInfo') as HTMLDivElement;
+
+  function updateFileInfo(file: File) {
+    const size = (file.size / 1024).toFixed(2);
+    fileInfo.textContent = `${file.name} (${size} KB)`;
+    fileInfo.classList.remove('hidden');
+  }
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    if (file) {
+      updateFileInfo(file);
+    }
+  });
 
   // Prevent default drag behaviors
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
@@ -69,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (files && files.length > 0) {
       fileInput.files = files;
-      // Optional: Trigger conversion automatically after drop
+      updateFileInfo(files[0]);
       convertButton.click();
     }
   });
