@@ -36,10 +36,43 @@ function convertJsonToVtt(jsonData: JsonData): string {
 
 document.addEventListener('DOMContentLoaded', () => {
   const fileInput = document.getElementById('jsonInput') as HTMLInputElement;
-  const convertButton = document.getElementById(
-    'convertButton'
-  ) as HTMLButtonElement;
+  const dropZone = document.querySelector('label[for="jsonInput"]') as HTMLLabelElement;
+  const convertButton = document.getElementById('convertButton') as HTMLButtonElement;
   const resultDiv = document.getElementById('result') as HTMLDivElement;
+
+  // Prevent default drag behaviors
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  });
+
+  // Add visual feedback
+  dropZone.addEventListener('dragenter', () => {
+    dropZone.classList.add('border-blue-500');
+    dropZone.classList.add('bg-blue-50');
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('border-blue-500');
+    dropZone.classList.remove('bg-blue-50');
+  });
+
+  // Handle dropped files
+  dropZone.addEventListener('drop', (e) => {
+    dropZone.classList.remove('border-blue-500');
+    dropZone.classList.remove('bg-blue-50');
+    
+    const dt = e.dataTransfer;
+    const files = dt?.files;
+
+    if (files && files.length > 0) {
+      fileInput.files = files;
+      // Optional: Trigger conversion automatically after drop
+      convertButton.click();
+    }
+  });
 
   convertButton.addEventListener('click', () => {
     const file = fileInput.files?.[0];
