@@ -9,7 +9,7 @@ interface JsonData {
   chunks: Chunk[];
 }
 
-function formatTime(seconds: number): string {
+export function formatTime(seconds: number): string {
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const secs = Math.floor(seconds % 60);
@@ -21,7 +21,7 @@ function formatTime(seconds: number): string {
   )}:${String(secs).padStart(2, '0')}.${String(ms).padStart(3, '0')}`;
 }
 
-function convertJsonToVtt(jsonData: JsonData): string {
+export function convertJsonToVtt(jsonData: JsonData): string {
   let vttContent = 'WEBVTT\n\n';
 
   jsonData.chunks.forEach((chunk, index) => {
