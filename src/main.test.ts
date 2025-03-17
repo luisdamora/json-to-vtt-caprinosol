@@ -1,5 +1,5 @@
 // filepath: /workspaces/json-to-vtt-caprinosol/src/main.test.ts
-import { formatTime, convertJsonToVtt } from './main';
+import { formatTime, convertJsonToVtt } from './app';
 
 describe('formatTime', () => {
     it('should format time correctly', () => {
@@ -18,11 +18,12 @@ describe('convertJsonToVtt', () => {
         };
 
         const expectedVtt = `WEBVTT
-        1 00:00:00.000 --> 00:00:02.500 Subtitle text here
 
-    2 00:00:03.000 --> 00:00:05.500 Another subtitle
+1 00:00:00.000 --> 00:00:02.500 Subtitle text here
 
-    `;
+2 00:00:03.000 --> 00:00:05.500 Another subtitle
+
+`;
         expect(convertJsonToVtt(jsonData)).toBe(expectedVtt);
     });
 
