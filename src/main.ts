@@ -1,5 +1,7 @@
 interface Chunk {
-  timestamp: number[];
+  timestamp?: number[];
+  start?: number;
+  end?: number;
   text: string;
 }
 
@@ -23,6 +25,14 @@ function convertJsonToVtt(jsonData: JsonData): string {
   let vttContent = 'WEBVTT\n\n';
 
   jsonData.chunks.forEach((chunk, index) => {
+
+
+    if (!chunk.timestamp && chunk.start && chunk.end) {
+      chunk.timestamp = [chunk.start, chunk.end]
+    } else {
+      chunk.timestamp = []
+    }
+
     const startTime = formatTime(chunk.timestamp[0]);
     const endTime = formatTime(chunk.timestamp[1]);
 
