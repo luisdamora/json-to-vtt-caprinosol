@@ -33,8 +33,8 @@ export function convertJsonToVtt(jsonData: JsonData): string {
             const startTime = formatTime(chunk.timestamp[0]);
             const endTime = formatTime(chunk.timestamp[1]);
 
-            vttContent += `${index + 1} `;
-            vttContent += `${startTime} --> ${endTime} `;
+            vttContent += `${index + 1}\n`;
+            vttContent += `${startTime} --> ${endTime}\n`;
             vttContent += `${chunk.text}\n\n`;
         }
     });
