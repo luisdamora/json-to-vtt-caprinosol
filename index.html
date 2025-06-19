@@ -16,22 +16,24 @@
 
   </style>
   <script>
-    let isMouseMoving = false;
-    let animationTimeout;
+    window.addEventListener('DOMContentLoaded', () => {
+      let isMouseMoving = false;
+      let animationTimeout;
 
-    document.addEventListener('mousemove', (e) => {
-      isMouseMoving = true;
-      document.body.style.animation = 'none';
+      document.addEventListener('mousemove', (e) => {
+        isMouseMoving = true;
+        document.body.style.animation = 'none';
 
-      const x = e.clientX / window.innerWidth * 100;
-      const y = e.clientY / window.innerHeight * 100;
-      document.body.style.backgroundPosition = `${x}% ${y}%`;
+        const x = e.clientX / window.innerWidth * 100;
+        const y = e.clientY / window.innerHeight * 100;
+        document.body.style.backgroundPosition = `${x}% ${y}%`;
 
-      clearTimeout(animationTimeout);
-      animationTimeout = setTimeout(() => {
-        isMouseMoving = false;
-        document.body.style.animation = 'gradientAnimation 15s ease infinite';
-      }, 1000);
+        clearTimeout(animationTimeout);
+        animationTimeout = setTimeout(() => {
+          isMouseMoving = false;
+          document.body.style.animation = 'gradientAnimation 15s ease infinite';
+        }, 1000);
+      });
     });
   </script>
 </head>
