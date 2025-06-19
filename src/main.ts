@@ -1,4 +1,5 @@
 import { convertJsonToVtt, JsonData } from "./app";
+import './style.css';
 
 
 document.addEventListener('DOMContentLoaded', () => {
