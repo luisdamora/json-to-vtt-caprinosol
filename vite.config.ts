@@ -15,5 +15,9 @@ export default defineConfig({
       outDir: 'dist'
     }),
   ],
+  build: {
+    minify: 'esbuild', // Ensure esbuild is used for minification
+    cssMinify: true, // Explicitly enable CSS minification
+  }
 })
 
