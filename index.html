@@ -87,10 +87,17 @@
                 <span class="font-semibold">Click to upload</span> or drag and
                 drop
               </p>
-              <p class="text-xs text-gray-500">JSON file only</p>
+              <p class="text-xs text-gray-500">JSON or SRT files (multiple allowed)</p>
             </div>
-            <input id="jsonInput" type="file" accept=".json" class="hidden" />
+            <input id="fileInput" type="file" accept=".json,.srt" class="hidden" multiple />
           </label>
+        </div>
+        <div class="mb-4">
+          <label for="fileType" class="block text-sm font-medium text-gray-700 mb-1">Input file type:</label>
+          <select id="fileType" name="fileType" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+            <option value="json" selected>JSON</option>
+            <option value="srt">SRT</option>
+          </select>
         </div>
         <div id="fileInfo" class="text-sm text-gray-600 text-center mb-2 hidden"></div>
         <button id="convertButton"
@@ -99,6 +106,27 @@
         </button>
         <div id="result" class="flex justify-center">
           <!-- Download link will appear here -->
+        </div>
+
+        <!-- Video Preview Section -->
+        <div id="videoPreviewSection" class="mt-8 hidden">
+          <h2 class="text-2xl font-semibold mb-4 text-center">Real-time Preview</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+            <div>
+              <label for="videoUpload" class="block text-sm font-medium text-gray-700 mb-1">Upload Video (optional):</label>
+              <input type="file" id="videoUpload" accept="video/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
+            </div>
+            <div id="videoContainer" class="w-full bg-black rounded-lg overflow-hidden aspect-video">
+              <video id="videoPlayer" class="w-full h-full" controls>
+                <!-- Sample video for testing -->
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          <div id="subtitleDisplay" class="mt-4 p-4 bg-gray-100 rounded-lg text-center text-lg font-semibold h-20 overflow-y-auto">
+            Subtitles will appear here
+          </div>
         </div>
       </div>
     </div>

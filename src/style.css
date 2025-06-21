@@ -62,3 +62,40 @@ body {
       background-size: 200% auto;
       animation: gradient 4s linear infinite;
     }
+
+/* Styling for Video Preview Section */
+#videoPreviewSection {
+  border-top: 1px solid #e5e7eb; /* gray-200 */
+  padding-top: 1.5rem; /* pt-6 */
+}
+
+#videoContainer video {
+  max-height: 400px; /* Adjust as needed */
+}
+
+#subtitleDisplay {
+  min-height: 3em; /* Ensure space for at least two lines of subtitles */
+  border: 1px solid #d1d5db; /* gray-300 */
+  background-color: #f9fafb; /* gray-50 */
+}
+
+/* Custom file input style */
+input[type="file"]::file-selector-button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px; /* rounded-full */
+  border-width: 0px;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+  --tw-bg-opacity: 1;
+  background-color: rgb(219 234 254 / var(--tw-bg-opacity)); /* bg-blue-50 */
+  color: rgb(29 78 216 / var(--tw-bg-opacity)); /* text-blue-700 */
+  transition-property: background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+input[type="file"]::file-selector-button:hover {
+    --tw-bg-opacity: 1;
+    background-color: rgb(191 219 254 / var(--tw-bg-opacity)); /* hover:bg-blue-100 */
+}
