@@ -125,8 +125,7 @@ Valid subtitle
     it('should skip chunks with invalid timestamp (not an array)', () => {
         const jsonData: JsonData = {
             chunks: [
-                // @ts-expect-error testing invalid input
-                { timestamp: 'invalid', text: 'Will be skipped' },
+                { timestamp: 'invalid' as any, text: 'Will be skipped' }, // Cast timestamp to any
                 { timestamp: [1, 2], text: 'Valid subtitle' }
             ],
         };
@@ -143,9 +142,8 @@ Valid subtitle
     it('should skip chunks with invalid timestamp (array wrong length)', () => {
         const jsonData: JsonData = {
             chunks: [
-                // @ts-expect-error testing invalid input
-                { timestamp: [1], text: 'Will be skipped' },
-                { timestamp: [1, 2, 3], text: 'Will also be skipped' },
+                { timestamp: [1] as any, text: 'Will be skipped' }, // Cast timestamp to any
+                { timestamp: [1, 2, 3] as any, text: 'Will also be skipped' }, // Cast timestamp to any
                 { timestamp: [3, 4], text: 'Valid subtitle' }
             ],
         };
@@ -162,8 +160,7 @@ Valid subtitle
     it('should skip chunks with non-numeric values in timestamp', () => {
         const jsonData: JsonData = {
             chunks: [
-                // @ts-expect-error testing invalid input
-                { timestamp: ['a', 'b'], text: 'Will be skipped' },
+                { timestamp: ['a', 'b'] as any, text: 'Will be skipped' }, // Cast timestamp to any
                 { timestamp: [1, 2], text: 'Valid subtitle' }
             ],
         };
@@ -180,8 +177,7 @@ Valid subtitle
     it('should skip chunks with invalid start/end (non-numeric)', () => {
         const jsonData: JsonData = {
             chunks: [
-                // @ts-expect-error testing invalid input
-                { start: 'a', end: 'b', text: 'Will be skipped' },
+                { start: 'a' as any, end: 'b' as any, text: 'Will be skipped' }, // Cast start/end to any
                 { start: 1, end: 2, text: 'Valid subtitle' }
             ],
         };
