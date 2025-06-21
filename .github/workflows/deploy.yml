@@ -2,7 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ['main']
+    branches: ['**'] # Trigger on all branches
+  pull_request:
+    branches: ['**'] # Also trigger on PRs to all branches
 
 permissions:
   contents: read
