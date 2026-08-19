@@ -2,18 +2,16 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ['main']
+    branches: ['**'] # Trigger on all branches
+  pull_request:
+    branches: ['**'] # Also trigger on PRs to all branches
 
-permissions:
+permissions: # Default permissions for all jobs, can be overridden per job
   contents: read
-  pages: write
-  id-token: write
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build_and_test:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,19 +20,63 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'npm'
+          cache: 'npm' # Changed from 'pnpm' to 'npm' as per install command
       - name: Install dependencies
-        run: npm install
-      - name: Run tests # Nuevo paso para ejecutar las pruebas
+        run: npm install # Assuming npm is used based on package-lock.json and commands
+      - name: Run tests
         run: npm test
       - name: Build
         run: npm run build
+      - name: Archive build artifacts # Optional: if deploy job needs artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: ./dist
+
+  deploy_to_pages:
+    name: Deploy to GitHub Pages
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' # Only on push to main
+    needs: build_and_test # Run after build_and_test is successful
+    runs-on: ubuntu-latest
+    permissions: # Specific permissions for this job
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout # Checkout again or download artifact
+        uses: actions/checkout@v4
+      # If not checking out, you'd download the artifact from build_and_test job
+      # - name: Download artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: dist-files
+      #     path: ./dist
+
+      # Re-run build steps or use artifact. For simplicity with current setup, re-running.
+      # If using artifact, ensure path is correct for Setup Pages.
+      # For this example, let's assume the build needs to happen in this job's context
+      # if we don't use the artifact from the previous job directly for deployment.
+      # However, best practice is to use the artifact built and tested.
+      # For now, to ensure it works with minimal changes from single job structure:
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      - name: Install dependencies # Required if not using a pre-built artifact directly
+        run: npm install
+      - name: Build # Required if not using a pre-built artifact directly
+        run: npm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3 # This is specific for Pages
         with:
-          path: './dist'
+          path: './dist' # Path to directory to upload
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
